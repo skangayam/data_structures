@@ -59,4 +59,48 @@ public class Node {
         }
         return head;
     }
+
+    public static Node mergeLists(Node headA, Node headB) {
+        if (headA == null && headB != null){
+            return headB;
+        }else if (headA != null && headB == null){
+            return headA;
+        }else if(headA == null && headB == null){
+            return null;
+        }
+
+        Node currentA = headA;
+        Node currentB = headB;
+        Node result;
+
+        if (headA.data < headB.data){
+            result = headA;
+            currentA = headA.next;
+        }else {
+            result = headB;
+            currentB = headB.next;
+        }
+
+        Node resultHead = result;
+
+        while (currentA != null && currentB != null){
+            if (currentA.data < currentB.data){
+                result.next = currentA;
+                currentA = currentA.next;
+                result = result.next;
+            }else {
+                result.next = currentB;
+                currentB = currentB.next;
+                result = result.next;
+            }
+        }
+
+        if (currentA == null && currentB != null){
+            result.next = currentB;
+        }else if (currentA != null && currentB == null){
+            result.next = currentA;
+        }
+
+        return resultHead;
+    }
 }
